@@ -1,0 +1,6 @@
+﻿initialise a game with round one
+ - inventory 15: 
+ - order of 5	
+ - shipping delay
+
+ when the retailer has an order of 5 then the amount is fullfilled 
