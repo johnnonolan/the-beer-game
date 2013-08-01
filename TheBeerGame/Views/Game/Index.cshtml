@@ -1,7 +1,8 @@
-﻿@model TheBeerGame.Models.GameStatusViewModel
+﻿@model Brewery.GameStatusViewModel
 
 
 <h2>Your Beer Game</h2>
+<div>
 <table>
     <thead>Retailer</thead>
     <tbody>
@@ -26,12 +27,13 @@
         <tr><td>Shipping Delays:</td> <td>@Model.Distributor.ShippingDelays</td></tr>
     </tbody>
 </table>
-<table>
-    <thead>Factory</thead>
-    <tbody>
-        <tr><td>Inventory:</td> <td>@Model.Factory.Inventory</td></tr>
-        <tr><td>Unfullfilled Orders:</td> <td>@Model.Factory.UnfulfilledOrders</td></tr>
-        <tr><td>Shipping Delays:</td> <td>@Model.Factory.ShippingDelays</td></tr>
-    </tbody>
-</table>
-        
+    <table>
+        <thead>Factory</thead>
+        <tbody>
+            <tr><td>Inventory:</td> <td>@Model.Factory.Inventory</td></tr>
+            <tr><td>Unfullfilled Orders:</td> <td>@Model.Factory.UnfulfilledOrders</td></tr>
+            <tr><td>Shipping Delays:</td> <td>@Model.Factory.ShippingDelays</td></tr>
+        </tbody>
+    </table>
+    <input type="button" value="End Turn" onclick="location.href='@Url.Action("EndTurn", "Game")' "/>
+    </div>        

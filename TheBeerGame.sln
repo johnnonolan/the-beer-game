@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBeerGame", "TheBeerGame\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBeerGame.Specs", "TheBeerGame.Specs\TheBeerGame.Specs.csproj", "{D53F84EC-234D-441F-BCB5-60AD61190924}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brewery", "Brewery\Brewery.csproj", "{641E3E27-4992-44AE-BE51-3106021726DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{D53F84EC-234D-441F-BCB5-60AD61190924}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D53F84EC-234D-441F-BCB5-60AD61190924}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D53F84EC-234D-441F-BCB5-60AD61190924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{641E3E27-4992-44AE-BE51-3106021726DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{641E3E27-4992-44AE-BE51-3106021726DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{641E3E27-4992-44AE-BE51-3106021726DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{641E3E27-4992-44AE-BE51-3106021726DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
