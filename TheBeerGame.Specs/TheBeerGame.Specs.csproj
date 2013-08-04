@@ -44,6 +44,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompletingATurn.cs" />
     <Compile Include="StartingAGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,9 +55,9 @@
     <Content Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Brewery\Brewery.csproj">
+    <ProjectReference Include="..\Brewery\Boozy.csproj">
       <Project>{641E3E27-4992-44AE-BE51-3106021726DD}</Project>
-      <Name>Brewery</Name>
+      <Name>Boozy</Name>
     </ProjectReference>
     <ProjectReference Include="..\TheBeerGame\TheBeerGame.csproj">
       <Project>{E2060F9A-29E9-4731-ADCE-D81F7528284E}</Project>

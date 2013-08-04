@@ -1,26 +1,38 @@
-﻿using System.Web.Mvc;
-//using Brewery;
-using B = Brewery;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+
+using Boozy;
 
 namespace TheBeerGame.Controllers
 {
     public class GameController : Controller
     {
+        readonly IBrewery _brewery;
 
-        
+        public GameController(IBrewery brewery)
+        {
+            _brewery = brewery;
+        }
+
+        public ActionResult Create(IEnumerable<int> orders )
+        {
+            var brewery = new Brewery(orders);
+            var model = brewery.CreateGame();
+            return View("Index", model);   
+   
+        }
         public ActionResult Create()
         {
-            var brewery = new B.Brewery();
+            var brewery = new Brewery();
             var model = brewery.CreateGame();
-            return View("Index",model);     
+            return View("Index", model);   
         }
 
 
-        public ActionResult EndTurn()
+        public ActionResult TakeTurn(Guid gameId, int retailOrder)
         {
-            var brewery = new B.Brewery();
-            var model = brewery.EndTurn();
-
+            var model = _brewery.EndTurn(gameId,5,retailOrder);
             return View("Index", model);
         }
     }

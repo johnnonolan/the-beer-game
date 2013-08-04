@@ -8,8 +8,8 @@
     <ProjectGuid>{641E3E27-4992-44AE-BE51-3106021726DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Brewery</RootNamespace>
-    <AssemblyName>Brewery</AssemblyName>
+    <RootNamespace>Boozy</RootNamespace>
+    <AssemblyName>Boozy</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,6 +43,7 @@
     <Compile Include="Brewery.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameStatusViewModel.cs" />
+    <Compile Include="IBrewery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Supplier.cs" />
   </ItemGroup>

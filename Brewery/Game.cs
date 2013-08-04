@@ -1,27 +1,35 @@
-﻿namespace Brewery
+﻿using System;
+using System.Collections.Generic;
+
+namespace Boozy
 {
     public class Game
     {
+        readonly IEnumerable<int> _orders;
 
         public Supplier Retailer { get; private set; }
+        
         public Supplier Wholesaler { get; private set; }
         public Supplier Distributor { get; private set; }
         public Supplier Factory { get; private set; }
-
+        public Guid GameId { get; private set; }
         public int Week { get; private set; }
 
-        public Game()
+        public Game(IEnumerable<int> orders)
         {
-            Retailer = new Supplier(); 
-            Wholesaler = new Supplier();
-            Distributor= new Supplier();
-            Factory = new Supplier();
+            _orders = orders;
+            GameId = Guid.NewGuid();
+            Retailer = new Supplier(null); 
+            Wholesaler = new Supplier(Retailer);
+            Distributor= new Supplier(Wholesaler);
+            Factory = new Supplier(Distributor);
             Week = 1;
-        }
+        }   
 
-        public void EndTurn(int order)
+        public void EndTurn(int orderForWholesaler, int order)
         {
-            Retailer.Inventory = Retailer.Inventory - order;
+            Wholesaler.Inventory -= orderForWholesaler;
+            Retailer.Inventory -=  order;
             Week++;
         }
 

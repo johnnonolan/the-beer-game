@@ -228,9 +228,9 @@
     <Content Include="Views\Game\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Brewery\Brewery.csproj">
+    <ProjectReference Include="..\Brewery\Boozy.csproj">
       <Project>{641E3E27-4992-44AE-BE51-3106021726DD}</Project>
-      <Name>Brewery</Name>
+      <Name>Boozy</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

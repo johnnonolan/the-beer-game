@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Brewery;
+using Boozy;
 using TheBeerGame.Controllers;
 using Xunit;
 
@@ -9,33 +9,6 @@ namespace TheBeerGame.Specs
 
     //in order to update the game state and finish the game
     //
-    public class CompletingATurn
-    {
-        [Fact]
-        public void InventoryShouldUpdate()
-        {
-            var gameController = new GameController();
-
-            gameController.Create();
-
-            var actionResult = gameController.EndTurn();
-            var vr = actionResult as ViewResult;
-            Assert.NotNull(vr);
-
-
-            Assert.IsType<GameStatusViewModel>(vr.Model);
-
-
-            var model = vr.Model as GameStatusViewModel;
-
-
-            Assert.NotNull(model);
-
-            Assert.Equal(10, model.Retailer.Inventory); 
-            Assert.Equal(2,model.Week);
-
-        }
-    }
 
 
     public class StartingAGame
@@ -44,7 +17,7 @@ namespace TheBeerGame.Specs
         [Fact]
         public void SupplyChainShouldBeInitialised()
         {
-            var gameController = new GameController();
+            var gameController = new GameController(new Brewery());
 
             var actionResult=  gameController.Create();
 

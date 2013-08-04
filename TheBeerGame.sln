@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBeerGame", "TheBeerGame\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBeerGame.Specs", "TheBeerGame.Specs\TheBeerGame.Specs.csproj", "{D53F84EC-234D-441F-BCB5-60AD61190924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brewery", "Brewery\Brewery.csproj", "{641E3E27-4992-44AE-BE51-3106021726DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boozy", "Brewery\Boozy.csproj", "{641E3E27-4992-44AE-BE51-3106021726DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
