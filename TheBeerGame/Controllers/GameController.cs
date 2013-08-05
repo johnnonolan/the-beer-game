@@ -15,13 +15,6 @@ namespace TheBeerGame.Controllers
             _brewery = brewery;
         }
 
-        public ActionResult Create(IEnumerable<int> orders )
-        {
-            var brewery = new Brewery(orders);
-            var model = brewery.CreateGame();
-            return View("Index", model);   
-   
-        }
         public ActionResult Create()
         {
             var brewery = new Brewery();
