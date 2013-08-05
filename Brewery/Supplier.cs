@@ -11,7 +11,7 @@
             UnfulfilledOrders = 5;
             ShippingDelays = 5;
         }
-        public int Inventory { get; set; }
+        public int Inventory { get; private set; }
 
         public int UnfulfilledOrders { get; set; }
 
@@ -19,6 +19,16 @@
 
         public void SetOrder(int quantity)
         {
+            //send order down stream
+            if (Inventory >= quantity)
+                Inventory -= quantity;
+            else
+            {
+                UnfulfilledOrders += (Inventory - quantity)*-1;
+                Inventory = 0;
+                
+            }
+
         }
 
         public void OrderFromUpStream(int qty)

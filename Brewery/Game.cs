@@ -26,10 +26,13 @@ namespace Boozy
             Week = 1;
         }   
 
-        public void EndTurn(int orderForWholesaler, int order)
+        public void EndTurn(int order, int orderForWholesaler, int orderForDistributor, int orderForFactory)
         {
-            Wholesaler.Inventory -= orderForWholesaler;
-            Retailer.Inventory -=  order;
+            Retailer.SetOrder(order);
+            Wholesaler.SetOrder(orderForWholesaler);
+            Distributor.SetOrder(orderForDistributor);
+            Factory.SetOrder(orderForFactory);
+
             Week++;
         }
 

@@ -23,9 +23,9 @@ namespace TheBeerGame.Controllers
         }
 
 
-        public ActionResult TakeTurn(Guid gameId, int retailOrder)
+        public ActionResult TakeTurn(Guid gameId, int retailOrder, int wholesaleOrder, int distributorOrder)
         {
-            var model = _brewery.EndTurn(gameId,5,retailOrder);
+            var model = _brewery.EndTurn(gameId,5,retailOrder,wholesaleOrder, distributorOrder);
             return View("Index", model);
         }
     }

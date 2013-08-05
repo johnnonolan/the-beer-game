@@ -26,40 +26,27 @@ namespace Boozy
 
             while (defaultOrders.Count <= 52)
             {
-                
                 if (defaultOrders.Count < 6)
-                    defaultOrders.Enqueue(5);
-                else
                 {
-                    if (defaultOrders.Count < 11)
-                        defaultOrders.Enqueue(7);
-                    else
-                    {
-                        if (defaultOrders.Count < 24)
-                            defaultOrders.Enqueue(10);
-                        else
-                        {
-                            if (defaultOrders.Count < 36)
-                                defaultOrders.Enqueue(5);
-                            else
-                            {
-                                if (defaultOrders.Count < 41)
-                                    defaultOrders.Enqueue(1);
-                                else
-                                {
-                                    if (defaultOrders.Count < 53)
-                                        defaultOrders.Enqueue(8);
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-                    
+                    defaultOrders.Enqueue(5);
+                    continue;
                 }
-
+                if (defaultOrders.Count < 11)
+                {
+                    defaultOrders.Enqueue(7);
+                    continue;
+                }
+                if (defaultOrders.Count < 24)
+                {
+                    defaultOrders.Enqueue(10);
+                    continue;
+                }
+                if (defaultOrders.Count < 36)
+                {
+                    defaultOrders.Enqueue(5);
+                    continue;
+                }
+                defaultOrders.Enqueue(defaultOrders.Count < 41 ? 1 : 8);
             }
             return defaultOrders;
         }
@@ -78,12 +65,12 @@ namespace Boozy
             return  new GameStatusViewModel(game);
         }
 
-        public GameStatusViewModel EndTurn(Guid gameId, int order, int retailOrder)
+        public GameStatusViewModel EndTurn(Guid gameId, int order, int retailOrder, int wholeSaleOrder, int distributorOrder)
         {
             // load the game
             var game = Games[gameId];
             //update the game
-            game.EndTurn(retailOrder,_orders.Dequeue());
+            game.EndTurn(_orders.Dequeue(),retailOrder,wholeSaleOrder, distributorOrder);
             return new GameStatusViewModel(game);
         }
     }

@@ -10,6 +10,9 @@ namespace Boozy
         public Supplier Distributor { get; private set; }
         public Supplier Factory { get; private set; }
         public int RetailOrder { get; set; }
+        public int WholesaleOrder { get; set; }
+        public int DistributorOrder { get; set; }
+        public int FactoryOrder { get; set; }
 
         public int Week { get; private set; }
 

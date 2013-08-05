@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBeerGame.Specs", "TheBee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boozy", "Brewery\Boozy.csproj", "{641E3E27-4992-44AE-BE51-3106021726DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brewery.Tests", "Brewery.Tests\Brewery.Tests.csproj", "{84BBAC89-24EC-41E3-A35A-82AA8E3303A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{641E3E27-4992-44AE-BE51-3106021726DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{641E3E27-4992-44AE-BE51-3106021726DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{641E3E27-4992-44AE-BE51-3106021726DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BBAC89-24EC-41E3-A35A-82AA8E3303A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BBAC89-24EC-41E3-A35A-82AA8E3303A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BBAC89-24EC-41E3-A35A-82AA8E3303A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BBAC89-24EC-41E3-A35A-82AA8E3303A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
