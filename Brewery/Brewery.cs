@@ -65,12 +65,14 @@ namespace Boozy
             return  new GameStatusViewModel(game);
         }
 
-        public GameStatusViewModel EndTurn(Guid gameId, int order, int retailOrder, int wholeSaleOrder, int distributorOrder)
+        public GameStatusViewModel EndTurn(Guid gameId,  int retailOrder,
+            int wholeSaleOrder, int distributorOrder)
         {
             // load the game
             var game = Games[gameId];
             //update the game
             game.EndTurn(_orders.Dequeue(),retailOrder,wholeSaleOrder, distributorOrder);
+            
             return new GameStatusViewModel(game);
         }
     }

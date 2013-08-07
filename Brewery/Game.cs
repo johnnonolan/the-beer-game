@@ -6,6 +6,10 @@ namespace Boozy
     public class Game
     {
         readonly IEnumerable<int> _orders;
+        int _retailBuffer;
+        int _WholesalerBuffer;
+        int _DistributorBuffer;
+        int _FactoryBuffer;
 
         public Supplier Retailer { get; private set; }
         
@@ -28,13 +32,29 @@ namespace Boozy
 
         public void EndTurn(int order, int orderForWholesaler, int orderForDistributor, int orderForFactory)
         {
+            StoreBuffers();
             Retailer.SetOrder(order);
             Wholesaler.SetOrder(orderForWholesaler);
             Distributor.SetOrder(orderForDistributor);
             Factory.SetOrder(orderForFactory);
-
+            FlushBuffers();
             Week++;
         }
 
+        void FlushBuffers()
+        {
+            Retailer.Inventory += _retailBuffer;
+            Wholesaler.Inventory += _WholesalerBuffer;
+            Distributor.Inventory += _DistributorBuffer;
+            Factory.Inventory += _FactoryBuffer;
+        }
+
+        void StoreBuffers()
+        {
+            _retailBuffer = Retailer.ShippingDelays;
+            _WholesalerBuffer = Wholesaler.ShippingDelays;
+            _DistributorBuffer = Distributor.ShippingDelays;
+            _FactoryBuffer = Factory.ShippingDelays;
+        }
     }
 }

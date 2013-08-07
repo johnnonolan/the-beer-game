@@ -2,8 +2,16 @@
 
 
 <h2>Your Beer Game</h2>
+
+@using (Html.BeginForm("TakeTurn","Game"))
+{
+
 <div>
-    <table>
+    
+
+    <fieldset>
+        <legend>Retail</legend>
+         <table>
         <thead>Retailer</thead>
         <tbody>
             <tr><td>Inventory:</td> <td>@Model.Retailer.Inventory</td></tr>
@@ -11,6 +19,10 @@
             <tr><td>Shipping Delays:</td> <td>@Model.Retailer.ShippingDelays</td></tr>
         </tbody>
     </table>
+        @Html.LabelFor(i=>i.RetailOrder)
+        @Html.TextBoxFor(i => i.RetailOrder)
+    </fieldset>
+
     <table>
         <thead>Wholesaler</thead>
         <tbody>
@@ -19,6 +31,11 @@
             <tr><td>Shipping Delays:</td> <td>@Model.Wholesaler.ShippingDelays</td></tr>
         </tbody>
     </table>
+    <fieldset>
+        <legend>Wholesaler</legend>
+        @Html.LabelFor(i=>i.WholesaleOrder)
+        @Html.TextBoxFor(i => i.WholesaleOrder)
+    </fieldset>
     <table>
         <thead>Distributor</thead>
         <tbody>
@@ -27,6 +44,11 @@
             <tr><td>Shipping Delays:</td> <td>@Model.Distributor.ShippingDelays</td></tr>
         </tbody>
     </table>
+    <fieldset>
+        <legend>Distributor</legend>
+        @Html.LabelFor(i=>i.DistributorOrder)
+        @Html.TextBoxFor(i => i.DistributorOrder)
+    </fieldset>
     <table>
         <thead>Factory</thead>
         <tbody>
@@ -35,30 +57,16 @@
             <tr><td>Shipping Delays:</td> <td>@Model.Factory.ShippingDelays</td></tr>
         </tbody>
     </table>
-</div>
-@using (Html.BeginForm("TakeTurn","Game"))
-{
-    <input type="hidden" name="gameId" value="@Model.GameId"/>
-    <input type="submit" value="Take Turn"/>
-    <fieldset>
-        <legend>Retail</legend>
-        @Html.LabelFor(i=>i.RetailOrder)
-        @Html.TextBoxFor(i => i.RetailOrder)
-    </fieldset>
-    <fieldset>
-        <legend>Wholesaler</legend>
-        @Html.LabelFor(i=>i.WholesaleOrder)
-        @Html.TextBoxFor(i => i.WholesaleOrder)
-    </fieldset>
-    <fieldset>
-        <legend>Distributor</legend>
-        @Html.LabelFor(i=>i.DistributorOrder)
-        @Html.TextBoxFor(i => i.DistributorOrder)
-    </fieldset>
     <fieldset>
         <legend>Factory</legend>
         @Html.LabelFor(i=>i.FactoryOrder)
         @Html.TextBoxFor(i => i.FactoryOrder)
     </fieldset>
+
+    <input type="hidden" name="gameId" value="@Model.GameId"/>
+    <input type="submit" value="Take Turn"/>
+
+</div>
+
 }
    

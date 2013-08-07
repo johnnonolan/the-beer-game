@@ -25,7 +25,12 @@ namespace TheBeerGame.Controllers
 
         public ActionResult TakeTurn(Guid gameId, int retailOrder, int wholesaleOrder, int distributorOrder)
         {
-            var model = _brewery.EndTurn(gameId,5,retailOrder,wholesaleOrder, distributorOrder);
+            //reduce buffer
+            //make order
+            // add to buffer
+
+            var model = _brewery.EndTurn(gameId,retailOrder,wholesaleOrder, distributorOrder);
+
             return View("Index", model);
         }
     }
