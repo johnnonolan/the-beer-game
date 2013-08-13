@@ -5,12 +5,6 @@ namespace Boozy
 {
     public class Game
     {
-        readonly IEnumerable<int> _orders;
-        int _retailBuffer;
-        int _WholesalerBuffer;
-        int _DistributorBuffer;
-        int _FactoryBuffer;
-
         public Supplier Retailer { get; private set; }
         
         public Supplier Wholesaler { get; private set; }
@@ -21,40 +15,30 @@ namespace Boozy
 
         public Game(IEnumerable<int> orders)
         {
-            _orders = orders;
             GameId = Guid.NewGuid();
-            Retailer = new Supplier(null); 
-            Wholesaler = new Supplier(Retailer);
-            Distributor= new Supplier(Wholesaler);
-            Factory = new Supplier(Distributor);
+            Factory = new Supplier(null,"Factory");
+            Distributor= new Supplier(Factory,"Distributor");
+            Wholesaler = new Supplier(Distributor, "Wholesaler");
+            Retailer = new Supplier(Wholesaler, "Retailer");
             Week = 1;
         }   
 
         public void EndTurn(int order, int orderForWholesaler, int orderForDistributor, int orderForFactory)
         {
-            StoreBuffers();
+            Retailer.ProcessUpStreamOrders();
             Retailer.SetOrder(order);
+            Wholesaler.ProcessUpStreamOrders();
             Wholesaler.SetOrder(orderForWholesaler);
+            Distributor.ProcessUpStreamOrders();
             Distributor.SetOrder(orderForDistributor);
+            Factory.ProcessUpStreamOrders();
             Factory.SetOrder(orderForFactory);
-            FlushBuffers();
+
             Week++;
         }
 
-        void FlushBuffers()
-        {
-            Retailer.Inventory += _retailBuffer;
-            Wholesaler.Inventory += _WholesalerBuffer;
-            Distributor.Inventory += _DistributorBuffer;
-            Factory.Inventory += _FactoryBuffer;
-        }
 
-        void StoreBuffers()
-        {
-            _retailBuffer = Retailer.ShippingDelays;
-            _WholesalerBuffer = Wholesaler.ShippingDelays;
-            _DistributorBuffer = Distributor.ShippingDelays;
-            _FactoryBuffer = Factory.ShippingDelays;
-        }
+
+
     }
 }

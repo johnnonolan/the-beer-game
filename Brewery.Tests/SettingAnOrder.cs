@@ -9,21 +9,22 @@ namespace Brewery.Tests
         [Fact]
         public void OrdersShouldAddToBufferToGoDownStream()
         {
-            var upstream = new Supplier(null);
+            var upstream = new Supplier(null,"");
             var shippingDelays = upstream.ShippingDelays;
-            var downstream = new Supplier(upstream);
-            downstream.SetOrder(1);
+            var downstream = new Supplier(upstream,"");
+            var upStreamUnfullfilled = upstream.UnfulfilledOrders;
+            downstream.OrderFromUpStream(1);
             
-            Assert.Equal(shippingDelays+1, upstream.ShippingDelays);
+            Assert.Equal(shippingDelays+upStreamUnfullfilled+1, upstream.ShippingDelays);
             
         }
         [Fact]
         public void ShouldAddOverOrdersToUnFulfilled()
         {
-            var supplier = new Supplier(null);
+            var supplier = new Supplier(null,"");
             var inventory = supplier.Inventory;
             var unfulfilledOrders = supplier.UnfulfilledOrders;
-            supplier.SetOrder(inventory+unfulfilledOrders+5);
+            supplier.SetOrder(inventory-unfulfilledOrders+5);
             
             Assert.Equal(5,supplier.UnfulfilledOrders);
         }
@@ -31,7 +32,7 @@ namespace Brewery.Tests
         [Fact]
         public void ShouldReduceInventory()
         {
-            var supplier = new Supplier(null);
+            var supplier = new Supplier(null,"");
             var inventory = supplier.Inventory+supplier.UnfulfilledOrders;
             supplier.SetOrder(inventory);
 

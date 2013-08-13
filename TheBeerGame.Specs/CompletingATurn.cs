@@ -38,7 +38,7 @@ namespace TheBeerGame.Specs
             var actionResult = _gameController.TakeTurn(gameModel.GameId,10,0, 0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
-            Assert.Equal(10, model.Wholesaler.Inventory); 
+            Assert.Equal(5, model.Wholesaler.Inventory); 
             Assert.Equal(2,model.Week); 
         }
 
@@ -49,10 +49,10 @@ namespace TheBeerGame.Specs
             var actionResult = _gameController.TakeTurn(gameModel.GameId, 7, 18, 6);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
-            Assert.Equal(10, model.Retailer.UnfulfilledOrders);
-            Assert.Equal(12, model.Wholesaler.UnfulfilledOrders);
-            //Assert.Equal(2, model.Distributor.Inventory);
-            //Assert.Equal(14, model.Factory.Inventory);
+            Assert.Equal(0, model.Retailer.UnfulfilledOrders);
+            Assert.Equal(0, model.Wholesaler.UnfulfilledOrders);
+            Assert.Equal(0, model.Distributor.Inventory);
+            Assert.Equal(4, model.Factory.Inventory);
             Assert.Equal(2, model.Week);             
         }
 
@@ -63,10 +63,10 @@ namespace TheBeerGame.Specs
             var actionResult = _gameController.TakeTurn(gameModel.GameId, 7,18, 6);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
-            Assert.Equal(15, model.Retailer.Inventory);
-            Assert.Equal(13, model.Wholesaler.Inventory);
-            Assert.Equal(2, model.Distributor.Inventory);
-            Assert.Equal(14,model.Factory.Inventory);
+            Assert.Equal(10, model.Retailer.Inventory);
+            Assert.Equal(8, model.Wholesaler.Inventory);
+            Assert.Equal(0, model.Distributor.Inventory);
+            Assert.Equal(4,model.Factory.Inventory);
             Assert.Equal(2, model.Week); 
         }
 
@@ -77,16 +77,37 @@ namespace TheBeerGame.Specs
             var createResult = gameController.Create();
             var gameModel = ModelFromActionResult<GameStatusViewModel>(createResult);
  
-            //todo flesh 0's out
-            var actionResult = gameController.TakeTurn(gameModel.GameId, 2,0, 0);
-            var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
-            Assert.Equal(14, model.Retailer.Inventory);
-            Assert.Equal(0, model.Retailer.UnfulfilledOrders);
+            //start with 15 - 6(order) = 9 + 
 
-            actionResult = gameController.TakeTurn(gameModel.GameId, 2,0, 0);
+            //todo flesh 0's out
+            var actionResult = gameController.TakeTurn(gameModel.GameId, 0,0, 0);
+            var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
+            Assert.Equal(9, model.Retailer.Inventory);
+            Assert.Equal(0, model.Retailer.UnfulfilledOrders);
+            //BECAUSE THERE IS NOT DOWNSTREAM THIS DOESN'T MATTER AND WILL CONTINUE TO ACCUMULATE
+            Assert.Equal(16, model.Retailer.ShippingDelays);
+
+            Assert.Equal(15, model.Wholesaler.Inventory);
+            Assert.Equal(0, model.Wholesaler.UnfulfilledOrders);
+            Assert.Equal(5, model.Wholesaler.ShippingDelays);
+
+            
+
+
+            actionResult = gameController.TakeTurn(gameModel.GameId, 0,0, 0);
             model = ModelFromActionResult<GameStatusViewModel>(actionResult);
-            Assert.Equal(12, model.Retailer.Inventory);
             Assert.NotNull(model);
+
+            Assert.Equal(12, model.Retailer.Inventory);
+            Assert.Equal(0, model.Retailer.UnfulfilledOrders);
+            //BECAUSE THERE IS NO DOWNSTREAM THIS DOESN'T MATTER AND WILL CONTINUE TO ACCUMULATE
+            Assert.Equal(18, model.Retailer.ShippingDelays);
+
+
+            Assert.Equal(20, model.Wholesaler.Inventory);
+            Assert.Equal(0, model.Wholesaler.UnfulfilledOrders);
+            Assert.Equal(0, model.Wholesaler.ShippingDelays);
+
   
         }
 
@@ -101,12 +122,12 @@ namespace TheBeerGame.Specs
             var actionResult = _gameController.TakeTurn(gameModel.GameId, 0, 0, 0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
-            Assert.Equal(15, model.Retailer.Inventory);
+            Assert.Equal(10, model.Retailer.Inventory);
             Assert.Equal(0, model.Retailer.UnfulfilledOrders);
-            //Assert.Equal(13, model.Wholesaler.Inventory);
-            //Assert.Equal(2, model.Distributor.Inventory);
-            //Assert.Equal(14, model.Factory.Inventory);
-            // Assert.Equal(2, model.Week); 
+            Assert.Equal(15, model.Wholesaler.Inventory);
+            Assert.Equal(15, model.Distributor.Inventory);
+            Assert.Equal(10, model.Factory.Inventory);
+            Assert.Equal(2, model.Week); 
 
         }
     }

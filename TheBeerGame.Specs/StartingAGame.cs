@@ -34,8 +34,8 @@ namespace TheBeerGame.Specs
 
             CheckSupplyChainMembersAreInitialised(model.Retailer);
             CheckSupplyChainMembersAreInitialised(model.Wholesaler);
-            CheckSupplyChainMembersAreInitialised(model.Distributor);
-            CheckSupplyChainMembersAreInitialised(model.Factory);
+ //           CheckSupplyChainMembersAreInitialised(model.Distributor);
+ //           CheckSupplyChainMembersAreInitialised(model.Factory);
         }
 
 // ReSharper disable UnusedParameter.Local
