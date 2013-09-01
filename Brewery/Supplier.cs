@@ -2,31 +2,44 @@
 
 namespace Boozy
 {
+    public class FurthestDownStream : Supplier
+    {
+        public FurthestDownStream(Supplier upstreamSupplier)
+        {
+            _upstreamSupplier = upstreamSupplier;
+            Inventory = 15;
+            UnfulfilledOrders = 5;
+           // ShippingDelays = 0;
+        }
+
+
+        public override void AddtoShippingBuffers(int quantity)
+        {
+            //void
+        }
+    }
+
     public class Supplier
     {
-        readonly string _description;
 
         static Supplier EmptySupplier()
         {
             return  new Supplier();
         }
 
-        readonly Supplier _upstreamSupplier;
+        protected  Supplier _upstreamSupplier;
 
-        public Supplier(Supplier upstreamSupplier, string description)
+        public Supplier(Supplier upstreamSupplier)
         {
-            _description = description;
+
             _upstreamSupplier = upstreamSupplier ?? EmptySupplier();
             Inventory = 15;
             UnfulfilledOrders = 5;
             ShippingDelays = 5;
         }
 
-        public override string ToString()
-        {
-            return _description;
-        }
-        Supplier()
+        protected 
+            Supplier()
         {
         }
 
@@ -34,7 +47,12 @@ namespace Boozy
 
         public int UnfulfilledOrders { get; set; }
 
-        public int ShippingDelays { get; set; }
+        public int ShippingDelays { get; private set ; }
+
+        public virtual void AddtoShippingBuffers(int quantity)
+        {
+            ShippingDelays += quantity;
+        }
 
         public void SetOrder(int quantity)
         {
@@ -43,13 +61,13 @@ namespace Boozy
             //send order down stream
             if (Inventory >= quantity)
             {
-                ShippingDelays += quantity;
+                AddtoShippingBuffers(quantity);
                 Inventory -= quantity;
             }
             else
             {
                 int unfulfilledOrders = (Inventory - quantity)*-1;
-                ShippingDelays += Inventory;
+                AddtoShippingBuffers(Inventory);
                 UnfulfilledOrders += unfulfilledOrders;
                 Inventory = 0;
             }
@@ -71,10 +89,6 @@ namespace Boozy
             return 0;
         }
 
-        void AddtoShippingBuffers(int unfulfilledOrders)
-        {
-            ShippingDelays += unfulfilledOrders;
-        }
 
         public void OrderFromUpStream(int qty)
         {

@@ -16,10 +16,10 @@ namespace Boozy
         public Game(IEnumerable<int> orders)
         {
             GameId = Guid.NewGuid();
-            Factory = new Supplier(null,"Factory");
-            Distributor= new Supplier(Factory,"Distributor");
-            Wholesaler = new Supplier(Distributor, "Wholesaler");
-            Retailer = new Supplier(Wholesaler, "Retailer");
+            Factory = new Supplier(null);
+            Distributor= new Supplier(Factory);
+            Wholesaler = new Supplier(Distributor);
+            Retailer = new FurthestDownStream(Wholesaler);
             Week = 1;
         }   
 
@@ -33,7 +33,6 @@ namespace Boozy
             Distributor.SetOrder(orderForDistributor);
             Factory.ProcessUpStreamOrders();
             Factory.SetOrder(orderForFactory);
-
             Week++;
         }
 

@@ -85,7 +85,7 @@ namespace TheBeerGame.Specs
             Assert.Equal(9, model.Retailer.Inventory);
             Assert.Equal(0, model.Retailer.UnfulfilledOrders);
             //BECAUSE THERE IS NOT DOWNSTREAM THIS DOESN'T MATTER AND WILL CONTINUE TO ACCUMULATE
-            Assert.Equal(16, model.Retailer.ShippingDelays);
+            Assert.Equal(0, model.Retailer.ShippingDelays);
 
             Assert.Equal(15, model.Wholesaler.Inventory);
             Assert.Equal(0, model.Wholesaler.UnfulfilledOrders);
@@ -100,8 +100,8 @@ namespace TheBeerGame.Specs
 
             Assert.Equal(12, model.Retailer.Inventory);
             Assert.Equal(0, model.Retailer.UnfulfilledOrders);
-            //BECAUSE THERE IS NO DOWNSTREAM THIS DOESN'T MATTER AND WILL CONTINUE TO ACCUMULATE
-            Assert.Equal(18, model.Retailer.ShippingDelays);
+
+            Assert.Equal(0, model.Retailer.ShippingDelays);
 
 
             Assert.Equal(20, model.Wholesaler.Inventory);
@@ -110,10 +110,6 @@ namespace TheBeerGame.Specs
 
   
         }
-
-        //unfullfilled orders are filled by any inventory
-        //
-        
 
         [Fact]
         public void AnyUnfullfilledOrdersThatCanBeShouldBeFulfilled()
@@ -130,5 +126,8 @@ namespace TheBeerGame.Specs
             Assert.Equal(2, model.Week); 
 
         }
-    }
+
+      
+
+        }
 }

@@ -34,17 +34,28 @@ namespace TheBeerGame.Specs
 
             CheckSupplyChainMembersAreInitialised(model.Retailer);
             CheckSupplyChainMembersAreInitialised(model.Wholesaler);
- //           CheckSupplyChainMembersAreInitialised(model.Distributor);
- //           CheckSupplyChainMembersAreInitialised(model.Factory);
+            CheckSupplyChainMembersAreInitialised(model.Distributor);
+            CheckSupplyChainMembersAreInitialised(model.Factory);
         }
 
 // ReSharper disable UnusedParameter.Local
         static void CheckSupplyChainMembersAreInitialised(Supplier supplier)
 // ReSharper restore UnusedParameter.Local
+        { 
+             CheckSupplyChainMembersAreInitialised(supplier, supplier is FurthestDownStream);
+        }
+
+        static void CheckSupplyChainMembersAreInitialised(Supplier supplier, bool furthestDownStream)
+// ReSharper restore UnusedParameter.Local
         {
             Assert.Equal(supplier.Inventory, 15);
             Assert.Equal(supplier.UnfulfilledOrders, 5);
-            Assert.Equal(supplier.ShippingDelays, 5);
+            var expected = 5;
+            if (furthestDownStream)
+            {
+                expected = 0;
+            }
+            Assert.Equal(supplier.ShippingDelays, expected);
         }
     }
 
