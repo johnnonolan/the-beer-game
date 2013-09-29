@@ -35,7 +35,7 @@ namespace TheBeerGame.Specs
         {
             var gameModel = CreateGame();
             //todo
-            var actionResult = _gameController.TakeTurn(gameModel.GameId,10,0, 0);
+            var actionResult = _gameController.TakeTurn(gameModel.GameId,10,0, 0,0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
             Assert.Equal(5, model.Wholesaler.Inventory); 
@@ -46,7 +46,7 @@ namespace TheBeerGame.Specs
         public void BuffersShouldBeUpdated()
         {
             var gameModel = CreateGame();
-            var actionResult = _gameController.TakeTurn(gameModel.GameId, 7, 18, 6);
+            var actionResult = _gameController.TakeTurn(gameModel.GameId, 7, 18, 6,0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
             Assert.Equal(0, model.Retailer.UnfulfilledOrders);
@@ -60,7 +60,7 @@ namespace TheBeerGame.Specs
         public void  OrdersShouldBePlaced()
         {
             var gameModel = CreateGame();
-            var actionResult = _gameController.TakeTurn(gameModel.GameId, 7,18, 6);
+            var actionResult = _gameController.TakeTurn(gameModel.GameId, 7,18, 6,0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
             Assert.Equal(10, model.Retailer.Inventory);
@@ -80,34 +80,26 @@ namespace TheBeerGame.Specs
             //start with 15 - 6(order) = 9 + 
 
             //todo flesh 0's out
-            var actionResult = gameController.TakeTurn(gameModel.GameId, 0,0, 0);
+            var actionResult = gameController.TakeTurn(gameModel.GameId, 0,0, 0,0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.Equal(9, model.Retailer.Inventory);
             Assert.Equal(0, model.Retailer.UnfulfilledOrders);
-            //BECAUSE THERE IS NOT DOWNSTREAM THIS DOESN'T MATTER AND WILL CONTINUE TO ACCUMULATE
-            Assert.Equal(0, model.Retailer.ShippingDelays);
 
             Assert.Equal(15, model.Wholesaler.Inventory);
             Assert.Equal(0, model.Wholesaler.UnfulfilledOrders);
-            Assert.Equal(5, model.Wholesaler.ShippingDelays);
 
             
 
 
-            actionResult = gameController.TakeTurn(gameModel.GameId, 0,0, 0);
+            actionResult = gameController.TakeTurn(gameModel.GameId, 0,0, 0,0);
             model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
 
             Assert.Equal(12, model.Retailer.Inventory);
             Assert.Equal(0, model.Retailer.UnfulfilledOrders);
 
-            Assert.Equal(0, model.Retailer.ShippingDelays);
-
-
             Assert.Equal(20, model.Wholesaler.Inventory);
             Assert.Equal(0, model.Wholesaler.UnfulfilledOrders);
-            Assert.Equal(0, model.Wholesaler.ShippingDelays);
-
   
         }
 
@@ -115,7 +107,7 @@ namespace TheBeerGame.Specs
         public void AnyUnfullfilledOrdersThatCanBeShouldBeFulfilled()
         {
             var gameModel = CreateGame();
-            var actionResult = _gameController.TakeTurn(gameModel.GameId, 0, 0, 0);
+            var actionResult = _gameController.TakeTurn(gameModel.GameId, 0, 0, 0,0);
             var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
             Assert.NotNull(model);
             Assert.Equal(10, model.Retailer.Inventory);
@@ -127,7 +119,36 @@ namespace TheBeerGame.Specs
 
         }
 
-      
+        [Fact]
+        public void FactoryProducesOrdersWithAShippingDelayOfOne()
+        {
+
+            //Inventory = 15;
+           // UnfulfilledOrders = 5;
+           // OutwardDeliveries = 5;
+
+            // I 15 - unfulfilled orders (5) + Shipping delays
+            // so because factory has no upstream. inventory is failing.
+
+
+           // var gameModel = CreateGame();
+            var gameController = new GameController(new Brewery(new[] { 0, 0 }));
+            var createResult = gameController.Create(); 
+            var gameModel = ModelFromActionResult<GameStatusViewModel>(createResult);
+
+           // _gameController.TakeTurn(gameModel.GameId, 0, 0, 0, 10);
+            var actionResult = _gameController.TakeTurn(gameModel.GameId, 0, 0, 0,0);
+            var model = ModelFromActionResult<GameStatusViewModel>(actionResult);
+            Assert.NotNull(model);
+            //Assert.Equal(10, model.Retailer.Inventory);
+            //Assert.Equal(0, model.Retailer.UnfulfilledOrders);
+            //Assert.Equal(20, model.Wholesaler.Inventory);
+            //Assert.Equal(20, model.Distributor.Inventory);
+            Assert.Equal(10, model.Factory.Inventory);
+            //Assert.Equal(3, model.Week); 
 
         }
+
+
+    }
 }

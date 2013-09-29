@@ -23,7 +23,7 @@ namespace TheBeerGame.Controllers
         }
 
 
-        public ActionResult TakeTurn(Guid gameId, int retailOrder, int wholesaleOrder, int distributorOrder)
+        public ActionResult TakeTurn(Guid gameId, int retailOrder, int wholesaleOrder, int distributorOrder, int factoryOrder)
         {
             //reduce buffer
             //make order

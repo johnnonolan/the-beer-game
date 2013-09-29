@@ -4,22 +4,33 @@ namespace Boozy
 {
     public class FurthestDownStream : Supplier
     {
-        public FurthestDownStream(Supplier upstreamSupplier)
+        public FurthestDownStream(ISupplier upstreamSupplier)
         {
             _upstreamSupplier = upstreamSupplier;
             Inventory = 15;
             UnfulfilledOrders = 5;
-           // ShippingDelays = 0;
+           // OutwardDeliveries = 0;
         }
 
 
-        public override void AddtoShippingBuffers(int quantity)
+        public override void AddtoOutwardDeliveries(int quantity)
         {
             //void
         }
     }
 
-    public class Supplier
+    public interface ISupplier
+    {
+        void SetOrder(int quantity);
+        void ProcessDeliveries();
+        int DeliverOrders();
+        int Inventory { get; set; }
+        int UnfulfilledOrders { get; set; }
+        int OutwardDeliveries { get; }
+
+    }
+
+    public class Supplier : ISupplier
     {
 
         static Supplier EmptySupplier()
@@ -27,15 +38,24 @@ namespace Boozy
             return  new Supplier();
         }
 
-        protected  Supplier _upstreamSupplier;
+        protected ISupplier _upstreamSupplier;
 
-        public Supplier(Supplier upstreamSupplier)
+
+        /// <summary>
+        /// All we need to do is 
+        /// 1) process incoming deliveries to increase inventory
+        /// 2) process any unfulfilled orders and send them to be delivered
+        /// 3) process any fullfiled orders and send them to be delivered.
+        /// 4) any orders that cannot be fullfilled are added to total
+        /// 5) order from supplier (in case of this class, manufacture).
+        /// </summary>
+
+        public Supplier(ISupplier upstreamSupplier)
         {
-
             _upstreamSupplier = upstreamSupplier ?? EmptySupplier();
             Inventory = 15;
             UnfulfilledOrders = 5;
-            ShippingDelays = 5;
+            OutwardDeliveries = 5;
         }
 
         protected 
@@ -47,58 +67,75 @@ namespace Boozy
 
         public int UnfulfilledOrders { get; set; }
 
-        public int ShippingDelays { get; private set ; }
+        public int OutwardDeliveries { get;  set ; }
+  
 
-        public virtual void AddtoShippingBuffers(int quantity)
+        public virtual void AddtoOutwardDeliveries(int quantity)
         {
-            ShippingDelays += quantity;
+            OutwardDeliveries += quantity;
         }
 
+
+        /// All we need to do is 
+        /// 1) process incoming deliveries to increase inventory
+        /// 2) process any unfulfilled orders and send them to be delivered
+        /// 3) process any fullfiled orders and send them to be delivered.
+        /// 4) any orders that cannot be fullfilled are added to total
+        /// 5) order from supplier (in case of this class, manufacture).
         public void SetOrder(int quantity)
         {
-            //_upstreamSupplier.ShippingDelays += quantity; 
             Inventory = FulfillUnfulfilledOrders(Inventory);
             //send order down stream
+            FulfillOrders(quantity);
+        }
+
+        void FulfillOrders(int quantity)
+        {
             if (Inventory >= quantity)
             {
-                AddtoShippingBuffers(quantity);
+                AddtoOutwardDeliveries(quantity);
                 Inventory -= quantity;
             }
             else
             {
                 int unfulfilledOrders = (Inventory - quantity)*-1;
-                AddtoShippingBuffers(Inventory);
+                AddtoOutwardDeliveries(Inventory);
                 UnfulfilledOrders += unfulfilledOrders;
                 Inventory = 0;
             }
-
         }
 
         int FulfillUnfulfilledOrders(int inventory)
         {
             if (inventory >= UnfulfilledOrders)
             {
-                AddtoShippingBuffers(UnfulfilledOrders);
+                AddtoOutwardDeliveries(UnfulfilledOrders);
 
                 var remaining = inventory - UnfulfilledOrders;
                 UnfulfilledOrders = 0;
                 return remaining;
             }
-            AddtoShippingBuffers(inventory);
+            AddtoOutwardDeliveries(inventory);
             UnfulfilledOrders -= inventory;
             return 0;
         }
 
 
-        public void OrderFromUpStream(int qty)
+        //public void OrderFromUpStream(int qty)
+        //{
+        //    _upstreamSupplier.SetOrder(qty);
+        //}
+
+        public void ProcessDeliveries()
         {
-            _upstreamSupplier.SetOrder(qty);
+            Inventory += _upstreamSupplier.DeliverOrders();
         }
 
-        public void ProcessUpStreamOrders()
+        public int DeliverOrders()
         {
-            Inventory += _upstreamSupplier.ShippingDelays;
-            _upstreamSupplier.ShippingDelays = 0;
+            var sd = OutwardDeliveries;
+            OutwardDeliveries = 0;
+            return sd;
         }
     }
 }

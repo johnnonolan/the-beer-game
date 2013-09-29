@@ -39,23 +39,23 @@ namespace TheBeerGame.Specs
         }
 
 // ReSharper disable UnusedParameter.Local
-        static void CheckSupplyChainMembersAreInitialised(Supplier supplier)
+        static void CheckSupplyChainMembersAreInitialised(ISupplier supplier)
 // ReSharper restore UnusedParameter.Local
         { 
              CheckSupplyChainMembersAreInitialised(supplier, supplier is FurthestDownStream);
         }
-
-        static void CheckSupplyChainMembersAreInitialised(Supplier supplier, bool furthestDownStream)
+// ReSharper disable UnusedParameter.Local
+        static void CheckSupplyChainMembersAreInitialised(ISupplier supplier, bool furthestDownStream)
 // ReSharper restore UnusedParameter.Local
         {
             Assert.Equal(supplier.Inventory, 15);
             Assert.Equal(supplier.UnfulfilledOrders, 5);
-            var expected = 5;
-            if (furthestDownStream)
-            {
-                expected = 0;
-            }
-            Assert.Equal(supplier.ShippingDelays, expected);
+            //var expected = 5;
+            //if (furthestDownStream)
+            //{
+            //    expected = 0;
+            //}
+            //Assert.Equal(supplier.OutwardDeliveries, expected);
         }
     }
 

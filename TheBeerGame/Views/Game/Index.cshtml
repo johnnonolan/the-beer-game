@@ -13,11 +13,12 @@
         <legend>Retail</legend>
          <table>
         <thead>Retailer</thead>
-        <tbody>
-            <tr><td>Inventory:</td> <td>@Model.Retailer.Inventory</td></tr>
-            <tr><td>Unfullfilled Orders:</td> <td>@Model.Retailer.UnfulfilledOrders</td></tr>
-            <tr><td>Shipping Delays:</td> <td>@Model.Retailer.ShippingDelays</td></tr>
-        </tbody>
+             <tbody>
+                 <tr><td>Shipping Delays:</td> <td>@Model.Retailer.OutwardDeliveries</td></tr>
+                 <tr><td>Inventory:</td> <td>@Model.Retailer.Inventory</td></tr>
+                 <tr><td>Unfullfilled Orders:</td> <td>@Model.Retailer.UnfulfilledOrders</td></tr>
+
+             </tbody>
     </table>
         @Html.LabelFor(i=>i.RetailOrder)
         @Html.TextBoxFor(i => i.RetailOrder)
@@ -26,9 +27,10 @@
     <table>
         <thead>Wholesaler</thead>
         <tbody>
+            <tr><td>Shipping Delays:</td> <td>@Model.Wholesaler.OutwardDeliveries</td></tr>
             <tr><td>Inventory:</td> <td>@Model.Wholesaler.Inventory</td></tr>
             <tr><td>Unfullfilled Orders:</td> <td>@Model.Wholesaler.UnfulfilledOrders</td></tr>
-            <tr><td>Shipping Delays:</td> <td>@Model.Wholesaler.ShippingDelays</td></tr>
+
         </tbody>
     </table>
     <fieldset>
@@ -39,9 +41,9 @@
     <table>
         <thead>Distributor</thead>
         <tbody>
+            <tr><td>Shipping Delays:</td> <td>@Model.Distributor.OutwardDeliveries</td></tr>
             <tr><td>Inventory:</td> <td>@Model.Distributor.Inventory</td></tr>
             <tr><td>Unfullfilled Orders:</td> <td>@Model.Distributor.UnfulfilledOrders</td></tr>
-            <tr><td>Shipping Delays:</td> <td>@Model.Distributor.ShippingDelays</td></tr>
         </tbody>
     </table>
     <fieldset>
@@ -52,9 +54,11 @@
     <table>
         <thead>Factory</thead>
         <tbody>
+            <tr><td>Shipping Delays:</td> <td>@Model.Factory.OutwardDeliveries</td></tr>
             <tr><td>Inventory:</td> <td>@Model.Factory.Inventory</td></tr>
             <tr><td>Unfullfilled Orders:</td> <td>@Model.Factory.UnfulfilledOrders</td></tr>
-            <tr><td>Shipping Delays:</td> <td>@Model.Factory.ShippingDelays</td></tr>
+            <tr><td>Being Manufactured:</td> <td>@Model.Factory.BeingManufactured</td></tr>
+
         </tbody>
     </table>
     <fieldset>
